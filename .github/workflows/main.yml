@@ -1,0 +1,63 @@
+name: CI/CD - HopWords Extension & API
+
+on:
+  push:
+    branches: [ "main", "master" ]
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Extension (Vite)
+        run: npm run build
+
+      # --- PARTE 1: API (GITHUB PAGES) ---
+      - name: Setup Pages
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        uses: actions/configure-pages@v4
+
+      - name: Upload API Artifact
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './api' # Serve apenas o conteúdo da sua pasta api/
+
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      # --- PARTE 2: EXTENSION RELEASE (ZIP) ---
+      - name: Package Extension
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          cd dist
+          zip -r ../hop-words-extension.zip ./*
+          cd ..
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: hop-words-extension.zip
+          generate_release_notes: true
