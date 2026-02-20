@@ -1,0 +1,34 @@
+[
+  {
+    "word": "always",
+    "options": [
+      { "text": "Sempre", "isCorrect": true },
+      { "text": "Nunca", "isCorrect": false },
+      { "text": "Às vezes", "isCorrect": false }
+    ]
+  },
+  {
+    "word": "never",
+    "options": [
+      { "text": "Sempre", "isCorrect": false },
+      { "text": "Nunca", "isCorrect": true },
+      { "text": "Amanhã", "isCorrect": false }
+    ]
+  },
+  {
+    "word": "develop",
+    "options": [
+      { "text": "Envolver", "isCorrect": false },
+      { "text": "Desenvolver", "isCorrect": true },
+      { "text": "Destruir", "isCorrect": false }
+    ]
+  },
+  {
+    "word": "browser",
+    "options": [
+      { "text": "Navegador", "isCorrect": true },
+      { "text": "Procurador", "isCorrect": false },
+      { "text": "Servidor", "isCorrect": false }
+    ]
+  }
+]

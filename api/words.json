@@ -1,0 +1,18 @@
+[
+  {
+    "word": "always",
+    "options": [
+      { "text": "Sempre", "isCorrect": true },
+      { "text": "Nunca", "isCorrect": false },
+      { "text": "Às vezes", "isCorrect": false }
+    ]
+  },
+  {
+    "word": "never",
+    "options": [
+      { "text": "Sempre", "isCorrect": false },
+      { "text": "Nunca", "isCorrect": true },
+      { "text": "Amanhã", "isCorrect": false }
+    ]
+  }
+]
