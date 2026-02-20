@@ -5,26 +5,13 @@ export class QuizCollection {
     constructor(private readonly quizzes: Quiz[]) {}
 
     public findByWord(word: WordText): Quiz | null {
-        const matches = this.quizzes.filter(quiz => quiz.matchesWord(word));
-        return this.returnFirstOrNull(matches);
+        // Mudamos de matchesWord para isMatch para bater com a Entidade
+        return this.quizzes.find(quiz => quiz.isMatch(word)) || null;
     }
 
     public getRandom(): Quiz | null {
-        return this.returnRandomOrNull(this.quizzes.length);
-    }
-
-    private returnFirstOrNull(matches: Quiz[]): Quiz | null {
-        if (matches.length === 0) {
-            return null;
-        }
-        return matches[0];
-    }
-
-    private returnRandomOrNull(length: number): Quiz | null {
-        if (length === 0) {
-            return null;
-        }
-        const randomIndex = Math.floor(Math.random() * length);
-        return this.quizzes[randomIndex];
+        if (this.quizzes.length === 0) return null;
+        const index = Math.floor(Math.random() * this.quizzes.length);
+        return this.quizzes[index];
     }
 }

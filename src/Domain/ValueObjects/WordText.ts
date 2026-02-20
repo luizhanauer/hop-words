@@ -1,11 +1,18 @@
 export class WordText {
-    constructor(private readonly value: string) {}
+    private readonly value: string;
 
-    public matches(other: WordText): boolean {
-        return this.value.toLowerCase() === other.value.toLowerCase();
+    constructor(value: string) {
+        if (!value || value.trim().length === 0) {
+            throw new Error("O texto da palavra não pode estar vazio.");
+        }
+        this.value = value.trim().toLowerCase();
     }
 
-    public display(): string {
+    public equals(other: WordText): boolean {
+        return this.value === other.toString();
+    }
+
+    public toString(): string {
         return this.value;
     }
 }
